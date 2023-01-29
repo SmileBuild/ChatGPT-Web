@@ -1,9 +1,4 @@
-# ChatGPT-Web
-ChatGPT page with API instand of offical pages.
-
-基于ChatGPT API的网页，避免出现无法登录而无法使用的情况。
-
-
+# chatgpt-web
 
 This template should help get you started developing with Vue 3 in Vite.
 
