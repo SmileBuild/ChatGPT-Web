@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatGPT-Web</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/axios@1.1.2/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <a href="https://github.com/SmileBuild/ChatGPT-Web">Version 0.1.0</a>
+    <div id="hello-vue" class="demo">
+        <div>
+            <form>
+                <label>Key</label>
+                <input type="text" v-model="key"/>
+                <label>Prompt:</label>
+                <textarea type="text" v-model="prompt" rows="20" cols="50"></textarea>
+                <label>Temperature:</label>
+                <input v-model="temperature" type="number" min="0" max="1" step="0.1" />
+                <label>Top P:</label>
+                <input v-model="top_p" type="number" min="0" max="1" step="0.1" />
+                <label>Model:</label>
+                <select v-model="model">
+                  <option v-for="m in models" :value="m">{{ m }}</option>
+                </select>
+            </form>
+            <button @click="submitForm">Confirm</button>
+            <p style="color:red;white-space: pre-wrap;">{{response}}</p>
+          </div>
+    </div>
+    
+    <script>
+    const HelloVueApp = {
+        data() {
+    return {
+      key: '',
+      prompt: '',
+      temperature: 0.7,
+      top_p: 1,
+      max_tokens: 2048,
+      frequency_penalty: 0,
+      presence_penalty: 0.6,
+      stop:["Human:","AI:"],
+      model: 'text-davinci-003',
+      models: ['text-davinci-003','text-davinci-002', 'text-curie-001'],
+      response: ''
+    }
+  },
+  methods: {
+    submitForm() {
+      let data = {        
+        prompt: this.prompt,
+        temperature: this.temperature,
+        top_p: this.top_p,
+        model: this.model,
+        max_tokens: this.max_tokens,
+        frequency_penalty: this.frequency_penalty,
+        presence_penalty: this.presence_penalty,
+        stop:this.stop
+      }
+      axios.post('https://api.openai.com/v1/completions', data, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer `+ this.key,
+        }
+      })
+      .then(response => {
+        this.response = response.data.choices[0].text;
+        console.log(this.response)
+      })
+      .catch(error => {
+        console.log(error);
+      });
+    }
+  }
+    }
+    
+    Vue.createApp(HelloVueApp).mount('#hello-vue')
+    </script>
+    </body>
+    </html>
