@@ -1,5 +1,5 @@
 ![vue.js](https://img.shields.io/badge/Vue.js-35495E?style=for-the-badge&logo=vue.js&logoColor=4FC08D)
-
+[![Licence](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
 
 # ChatGPT-Web
 ChatGPT page with API instand of offical pages.
