@@ -9,6 +9,10 @@ You can use chatgpt-web.html, it's a simple page to use chatgpt.
 
 你可以直接使用chatgpt-web.html，快速的开始使用chatgpt.
 
+# Vue Project looks like
+
+![v0.2.0](https://github.com/SmileBuild/ChatGPT-Web/blob/main/images/ChatGPT020.png)
+
 ## Project Setup
 
 ```sh
