@@ -11,7 +11,7 @@ You can use chatgpt-web.html, it's a simple page to use chatgpt.
 
 # Vue Project looks like
 
-![v0.2.0](https://github.com/SmileBuild/ChatGPT-Web/blob/main/images/ChatGPT020.png)
+![v0.2.0](https://raw.githubusercontent.com/SmileBuild/ChatGPT-Web/main/images/ChatGPT020.png)
 
 ## Project Setup
 
