@@ -1,22 +1,24 @@
 <template>
   <el-container>
     <el-header>
-      <h1>ChatGPT-Web v0.2.0</h1>
+        <h1>ChatGPT-Web v0.2.0   </h1>
     </el-header>
     <el-main>
       <el-row :gutter="40">
         <el-col :span="8" class="col-params" v-loading="loading" element-loading-text="Loading..."
           :element-loading-spinner="svg" element-loading-svg-view-box="-10, -10, 50, 50"
           element-loading-background="rgba(122, 122, 122, 0.8)">
-
           <h2>Params 参数配置</h2>
           <el-divider />
+
           <el-form>
             <h4>API Key</h4>
-            <el-input v-model="key" placeholder="API Key(API秘钥)" show-password type="password"></el-input>
+            <el-input v-model="key" placeholder="API秘钥" show-password type="password"></el-input>
             <h4>Prompt</h4>
-            <el-input type="textarea" v-model="prompt" placeholder="Prompt(输入内容)" rows="10"></el-input>
+            <el-input type="textarea" v-model="prompt" placeholder="输入内容" rows="10"></el-input>
+
             <h4>Max_tokens</h4>
+
             <el-input-number type="number" v-model="max_tokens"></el-input-number>
             <h4>Temperature</h4>
             <div class="slider-block">
@@ -46,14 +48,21 @@
             </el-select>
           </el-form>
           <el-divider />
+
           <el-button size="large" type="success" @click="submitForm">Confirm 确定</el-button>
+          <el-divider />
+          <el-link href="https://beta.openai.com/docs/api-reference/completions/create#completions/create-model"
+          target="_blank" type="danger">param info (参数说明)</el-link>
+
+
+
         </el-col>
         <el-col :span="16">
 
           <h2>Repsonse 结果</h2>
           <el-divider />
           <el-button size="large" type="warning" @click="downloadTxt" :disabled="download_disable">save 保存</el-button>
-          
+
           <p id="result" style="color:red;white-space: pre-wrap;">{{ response }}</p>
         </el-col>
       </el-row>
@@ -84,20 +93,20 @@ export default {
       download_disable: true
     }
   },
-  watch:{
-    response(resp){
-      if (resp == ''){
+  watch: {
+    response(resp) {
+      if (resp == '') {
         this.download_disable = true;
-      }else{
+      } else {
         this.download_disable = false;
       }
     }
   },
   methods: {
     downloadTxt() {
-      let text = 'Prompt: '+ this.prompt + '\n' + document.getElementById('result').innerText;
+      let text = 'Prompt: ' + this.prompt + '\n' + document.getElementById('result').innerText;
       let element = document.createElement("a");
-      let file = new Blob([text], {type: 'text/plain'});
+      let file = new Blob([text], { type: 'text/plain' });
       element.href = URL.createObjectURL(file);
       element.download = "download.txt";
       element.click();
@@ -137,7 +146,7 @@ export default {
 <style scoped>
 .el-header {
   background: var(--el-color-black);
-  color:aliceblue;
+  color: aliceblue;
 }
 
 .slider-block {
