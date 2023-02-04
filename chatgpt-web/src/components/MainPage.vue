@@ -8,6 +8,8 @@
         <el-col :span="8" class="col-params" v-loading="loading" element-loading-text="Loading..."
           :element-loading-spinner="svg" element-loading-svg-view-box="-10, -10, 50, 50"
           element-loading-background="rgba(122, 122, 122, 0.8)">
+          
+          <el-button size="large" type="success" @click="submitForm">Confirm 确定</el-button>
           <h2>Params 参数配置</h2>
           <el-divider />
 
@@ -48,9 +50,6 @@
             </el-select>
           </el-form>
           <el-divider />
-
-          <el-button size="large" type="success" @click="submitForm">Confirm 确定</el-button>
-          <el-divider />
           <el-link href="https://beta.openai.com/docs/api-reference/completions/create#completions/create-model"
           target="_blank" type="danger">param info (参数说明)</el-link>
 
@@ -58,10 +57,10 @@
 
         </el-col>
         <el-col :span="16">
-
+          <el-button size="large" type="warning" @click="downloadTxt" :disabled="download_disable">save 保存</el-button>
           <h2>Repsonse 结果</h2>
           <el-divider />
-          <el-button size="large" type="warning" @click="downloadTxt" :disabled="download_disable">save 保存</el-button>
+          
 
           <p id="result" style="color:red;white-space: pre-wrap;">{{ response }}</p>
         </el-col>
@@ -81,11 +80,11 @@ export default {
       loading: false,
       key: '',
       prompt: '',
-      temperature: 0.7,
+      temperature: 1,
       top_p: 1,
       max_tokens: 2048,
       frequency_penalty: 0,
-      presence_penalty: 0.6,
+      presence_penalty: 0,
       stop: ["Human:", "AI:"],
       model: 'text-davinci-003',
       models: ['text-davinci-003', 'text-davinci-002', 'text-curie-001'],
