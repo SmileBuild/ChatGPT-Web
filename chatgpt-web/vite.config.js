@@ -10,6 +10,7 @@ export default defineConfig({
   build:{
     outDir:'prod',
   },
+  publicPath: process.env.NODE_ENV === "production" ? "/ChatGPT-Web/prod" : "/",
   resolve: {
     
     alias: {
