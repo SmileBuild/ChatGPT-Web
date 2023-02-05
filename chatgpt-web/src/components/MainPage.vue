@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header>
-        <h1>ChatGPT-Web v0.2.0   </h1>
+        <h1>ChatGPT-Web v0.2.2   </h1>
     </el-header>
     <el-main>
       <el-row :gutter="40">
