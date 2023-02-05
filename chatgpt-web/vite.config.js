@@ -6,10 +6,10 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  base:'/ChatGPT-Web/',
+  base:'/ChatGPT-Web/chatgpt-web/',
   build:{
   },
-  publicPath: process.env.NODE_ENV === "production" ? "/ChatGPT-Web/prod" : "/",
+  // publicPath: process.env.NODE_ENV === "production" ? "/ChatGPT-Web/prod" : "/",
   resolve: {
     
     alias: {
