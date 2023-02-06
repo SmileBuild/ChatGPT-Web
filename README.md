@@ -6,11 +6,11 @@ ChatGPT page with API instand of offical pages.
 
 基于ChatGPT API的网页，避免出现无法登录而无法使用的情况。
 
-# The most convenient way
+# Online link
 
-You can use chatgpt-web.html, it's a simple page to use chatgpt.
+You can use online link for the project now.
 
-你可以直接使用chatgpt-web.html，快速的开始使用chatgpt.
+[ChatGPT-Web online](https://smilebuild.github.io/ChatGPT-Web/)
 
 # Vue Project looks like
 
