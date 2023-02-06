@@ -92,7 +92,16 @@ export default {
       download_disable: true
     }
   },
+  mounted(){
+    this.key = localStorage.getItem('api-key')
+  },
   watch: {
+    key:{
+      handler(val){
+        localStorage.setItem('api-key',val)
+      },
+      deep: true
+    },
     response(resp) {
       if (resp == '') {
         this.download_disable = true;
