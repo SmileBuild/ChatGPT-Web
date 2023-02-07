@@ -6,8 +6,13 @@
     <el-col :span="8" class="col-params" v-loading="loading" element-loading-text="Loading..."
       :element-loading-spinner="svg" element-loading-svg-view-box="-10, -10, 50, 50"
       element-loading-background="rgba(122, 122, 122, 0.8)">
-
-      <el-button size="large" type="success" @click="submitForm">Confirm 确定</el-button>
+      
+      <Edit style="width: 1em; height: 1em; margin-right: 8px" />
+      <el-button type="primary" :icon="Search" />
+      <el-button size="large" type="success" icon="Search" @click="submitForm">
+        
+        确定
+      </el-button>
       <h2>Params 参数配置</h2>
       <el-divider />
 
@@ -77,6 +82,7 @@
 <!-- https://beta.openai.com/docs/api-reference/completions/create -->
 <script>
 import axios from 'axios'
+import { Search } from '@element-plus/icons-vue'
 export default {
   name: 'Editor',
   data() {

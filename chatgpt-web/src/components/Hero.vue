@@ -3,9 +3,10 @@
         <h2 class="hero-title">ChatGPT网页版</h2>        
     </el-row>
     <el-row justify="center">
-        <el-image alt="BiliBili" src="https://img.shields.io/badge/?logo=bilibili&label=bilibili&message=共享技术官"/>
-        <el-image alt="Version" src="https://img.shields.io/github/package-json/v/SmileBuild/ChatGPT-Web?filename=chatgpt-web%2Fpackage.json"/>
-
+        
+        <el-image alt="Version" src="https://img.shields.io/badge/bilibili-共享技术官-00A1D6?logo=bilibili&link=https://space.bilibili.com/34147682"/>
+        <el-image alt="wechat" src="https://img.shields.io/badge/wechat-共享技术官-07C160?logo=wechat"/>
+        
     </el-row>
     <el-row justify="center">
         <el-image alt="GitHub" src="https://img.shields.io/github/license/smilebuild/chatgpt-web"/>
