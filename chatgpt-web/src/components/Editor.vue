@@ -1,18 +1,31 @@
 <template>
 
-
+  <el-row class="button-row" justify="center">
+    <el-tooltip class="box-item" effect="dark" content="参数设置" placement="bottom">
+      <el-button size="large" type="success" icon="Operation" @click="openParams" plain>
+        Params</el-button>
+    </el-tooltip>
+    <el-tooltip class="box-item" effect="dark" content="运行" placement="bottom">
+      <el-button size="large" type="success" icon="Select" @click="submitForm">
+        Run</el-button>
+        
+    </el-tooltip>
+    <el-tooltip class="box-item" effect="dark" content="下载" placement="bottom">
+      <el-button size="large" type="danger" @click="downloadTxt"  icon="Download" :disabled="download_disable">save</el-button>
+      
+    </el-tooltip>
+    <el-tooltip class="box-item" effect="dark" content="历史记录" placement="bottom">
+      <el-button size="large" type="warning" @click="toggleHistory" icon="List" plain> History
+      </el-button>
+    </el-tooltip>
+  </el-row>
 
   <el-row :gutter="40">
     <el-col :span="8" class="col-params" v-loading="loading" element-loading-text="Loading..."
       :element-loading-spinner="svg" element-loading-svg-view-box="-10, -10, 50, 50"
       element-loading-background="rgba(122, 122, 122, 0.8)">
-      
-      <Edit style="width: 1em; height: 1em; margin-right: 8px" />
-      <el-button type="primary" :icon="Search" />
-      <el-button size="large" type="success" icon="Search" @click="submitForm">
-        
-        确定
-      </el-button>
+
+
       <h2>Params 参数配置</h2>
       <el-divider />
 
@@ -63,9 +76,7 @@
       <ul v-if="display_history">
         <li v-for="(item, index) in history_list" :key="index">{{ item.prompt }}</li>
       </ul>
-      <el-button size="large" type="warning" @click="downloadTxt" :disabled="download_disable">save 保存</el-button>
-      <el-button size="large" type="warning" @click="toggleHistory"> {{ display_history? "Hide": "Show" }}
-      </el-button>
+
       <h2>Repsonse 结果</h2>
       <el-divider />
 
@@ -82,7 +93,6 @@
 <!-- https://beta.openai.com/docs/api-reference/completions/create -->
 <script>
 import axios from 'axios'
-import { Search } from '@element-plus/icons-vue'
 export default {
   name: 'Editor',
   data() {
@@ -221,5 +231,8 @@ export default {
 
 .slider-block .slider-laber+.el-slider {
   flex: 0 0 70%;
+}
+.button-row{
+  margin-top: 1rem;
 }
 </style>
