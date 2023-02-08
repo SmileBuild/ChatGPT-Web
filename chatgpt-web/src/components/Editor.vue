@@ -1,87 +1,123 @@
 <template>
+  <el-row class="input-row" justify="center">
+    <el-col :span="8">
+      <el-form label-width="auto" size="large">
+        <el-form-item label="ApiKey">
+          <el-input v-model="api_key" placeholder="add key here. 在这里输入秘钥" show-password type="password"></el-input>
+        </el-form-item>
+        <el-form-item label="Prompt">
+          <el-input type="textarea" v-model="prompt" placeholder="Input text here. 在这里输入内容" rows="3"></el-input>
+        </el-form-item>
+      </el-form>
+    </el-col>
+  </el-row>
 
-  <el-row class="button-row" justify="center">
+  <el-row class="button-row" justify="center" v-loading="loading" element-loading-text="Loading..."
+    :element-loading-spinner="svg" element-loading-svg-view-box="-10, -10, 50, 50"
+    element-loading-background="rgba(122, 122, 122, 0.8)">
     <el-tooltip class="box-item" effect="dark" content="参数设置" placement="bottom">
-      <el-button size="large" type="success" icon="Operation" @click="openParams" plain>
+      <el-button size="large" type="success" icon="Operation" @click="toggleParamsBtn" plain>
         Params</el-button>
     </el-tooltip>
     <el-tooltip class="box-item" effect="dark" content="运行" placement="bottom">
       <el-button size="large" type="success" icon="Select" @click="submitForm">
         Run</el-button>
-        
     </el-tooltip>
-    <el-tooltip class="box-item" effect="dark" content="下载" placement="bottom">
-      <el-button size="large" type="danger" @click="downloadTxt"  icon="Download" :disabled="download_disable">save</el-button>
-      
-    </el-tooltip>
+
     <el-tooltip class="box-item" effect="dark" content="历史记录" placement="bottom">
       <el-button size="large" type="warning" @click="toggleHistory" icon="List" plain> History
       </el-button>
     </el-tooltip>
   </el-row>
 
-  <el-row :gutter="40">
-    <el-col :span="8" class="col-params" v-loading="loading" element-loading-text="Loading..."
-      :element-loading-spinner="svg" element-loading-svg-view-box="-10, -10, 50, 50"
-      element-loading-background="rgba(122, 122, 122, 0.8)">
+  <el-row class="widget-row" justify="center">
+    <el-col :span="4" class="params-widget">
+      <Transition name="el-zoom-in-right">
+        <el-card shadow="hover" v-show="display_params" style="background-color:var(--el-fill-color)" :body-style="{ height: '24rem' }">
+          <template #header>
+            <div class="card-header">
+              <span class="card-header-text">Params 参数配置</span>
+              <el-tooltip class="box-item" effect="dark" content="param info (参数说明)" placement="top">
+                <el-button size="large" type="primary" @click="jumpDocs" icon="Warning" circle></el-button>
+              </el-tooltip>
+            </div>
 
+          </template>
 
-      <h2>Params 参数配置</h2>
-      <el-divider />
+          <el-scrollbar>
+            <el-form>
+              <h4>Max_tokens</h4>
 
-      <el-form>
-        <h4>API Key</h4>
-        <el-input v-model="api_key" placeholder="API秘钥" show-password type="password"></el-input>
-        <h4>Prompt</h4>
-        <el-input type="textarea" v-model="prompt" placeholder="输入内容" rows="10"></el-input>
+              <el-input-number type="number" v-model="max_tokens"></el-input-number>
+              <h4>Temperature(0~1)</h4>
+              <div class="slider-block">
 
-        <h4>Max_tokens</h4>
+                <el-slider v-model="temperature" :step="0.1" :min="0" :max="1" show-input />
+              </div>
+              <h4>Top_p(0~1)</h4>
+              <div class="slider-block">
 
-        <el-input-number type="number" v-model="max_tokens"></el-input-number>
-        <h4>Temperature</h4>
-        <div class="slider-block">
-          <span class="slider-laber">Temperature</span>
-          <el-slider v-model="temperature" :step="0.1" :min="0" :max="1" show-input />
-        </div>
-        <h4>Top_p</h4>
-        <div class="slider-block">
-          <span class="slider-laber">Top_p</span>
-          <el-slider v-model="top_p" :step="0.1" :min="0" :max="1" show-input />
-        </div>
-        <h4>Frequency_penalty</h4>
-        <div class="slider-block">
-          <span class="slider-laber">Frequency_penalty</span>
-          <el-slider v-model="frequency_penalty" :step="0.1" :min="-2" :max="2" show-input />
-        </div>
-        <h4>Presence_penalty</h4>
-        <div class="slider-block">
-          <span class="slider-laber">Presence_penalty</span>
-          <el-slider v-model="presence_penalty" :step="0.1" :min="-2" :max="2" show-input />
-        </div>
-        <h4>Model</h4>
-        <el-select v-model="model" class="m-2" placeholder="Model" size="large">
-          <el-option v-for="item in models" :key="item.value" :label="item.label" :value="item.value">{{
-            item
-          }}</el-option>
-        </el-select>
-      </el-form>
-      <el-divider />
-      <el-link href="https://beta.openai.com/docs/api-reference/completions/create#completions/create-model"
-        target="_blank" type="danger">param info (参数说明)</el-link>
+                <el-slider v-model="top_p" :step="0.1" :min="0" :max="1" show-input />
+              </div>
+              <h4>Frequency_penalty(-2~2)</h4>
+              <div class="slider-block">
 
+                <el-slider v-model="frequency_penalty" :step="0.1" :min="-2" :max="2" show-input />
+              </div>
+              <h4>Presence_penalty(-2~2)</h4>
+              <div class="slider-block">
 
-
+                <el-slider v-model="presence_penalty" :step="0.1" :min="-2" :max="2" show-input />
+              </div>
+              <h4>Model</h4>
+              <el-select v-model="model" class="m-2" placeholder="Model" size="large">
+                <el-option v-for="item in models" :key="item.value" :label="item.label" :value="item.value">{{
+                  item
+                }}</el-option>
+              </el-select>
+            </el-form>
+          </el-scrollbar>
+        </el-card>
+      </Transition>
     </el-col>
-    <el-col :span="16">
-      <ul v-if="display_history">
-        <li v-for="(item, index) in history_list" :key="index">{{ item.prompt }}</li>
-      </ul>
+    <el-col :span="8" class="result-widget">
+      <el-card shadow="never" :body-style="{ height: '24rem' }">
+        <template #header>
+          <div class="card-header">
+            <span class="card-header-text">Result 结果</span>
+            <el-tooltip class="box-item" effect="dark" content="Download-下载" placement="top">
+              <el-button size="large" type="danger" @click="downloadTxt" icon="Download" :disabled="download_disable"
+                circle></el-button>
 
-      <h2>Repsonse 结果</h2>
-      <el-divider />
+            </el-tooltip>
 
+          </div>
+        </template>
+        <el-scrollbar>
+          <p id="result" style="color:red;white-space: pre-wrap;">{{ response }}</p>
+        </el-scrollbar>
+      </el-card>
+    </el-col>
 
-      <p id="result" style="color:red;white-space: pre-wrap;">{{ response }}</p>
+    <el-col :span="4" class="history-widget">
+      <Transition name="el-zoom-in-left">
+        <el-card v-show="display_history" style="background-color:var(--el-fill-color)" shadow="hover" :body-style="{ height: '24rem' }">
+          <template #header>
+            <div class="card-header">
+              <span class="card-header-text">History 历史记录</span>
+
+              <el-tooltip class="box-item" effect="dark" content="param info (参数说明)" placement="top">
+                <el-button size="large" type="primary" class="button" icon="InfoFilled" circle></el-button>
+              </el-tooltip>
+            </div>
+          </template>
+          <el-scrollbar>
+            <ul>
+              <li v-for="(item, index) in history_list" :key="index">{{ item.prompt }}</li>
+            </ul>
+          </el-scrollbar>
+        </el-card>
+      </Transition>
     </el-col>
 
   </el-row>
@@ -109,7 +145,9 @@ export default {
       model: 'text-davinci-003',
       models: ['text-davinci-003', 'text-davinci-002', 'text-curie-001'],
       response: '',
+
       download_disable: true,
+      display_params: false,
       display_history: false,
       history_list: []
     }
@@ -140,6 +178,13 @@ export default {
     }
   },
   methods: {
+    jumpDocs() {
+      window.location.href = "https:\\baidu.com";
+
+    },
+    toggleParamsBtn() {
+      this.display_params = !this.display_params;
+    },
     toggleHistory() {
       this.display_history = !this.display_history;
     },
@@ -232,7 +277,27 @@ export default {
 .slider-block .slider-laber+.el-slider {
   flex: 0 0 70%;
 }
-.button-row{
+
+.button-row {
   margin-top: 1rem;
+}
+
+.input-row {
+  margin-top: 1rem;
+}
+
+.widget-row {
+  margin-top: 1rem;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-header-text {
+  font-size: 1rem;
+  font-weight: bolder;
 }
 </style>
