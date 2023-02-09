@@ -7,6 +7,11 @@
             <el-row justify="center">
                 <el-link class="hero-subtitle">🏡https://github.com/SmileBuild/ChatGPT-Web/</el-link>
             </el-row>
+            <el-row justify="center">                
+                <el-switch v-model="theme" size="large" active-icon="Sunny" 
+                inactive-icon="Moon"                 
+                inline-prompt />
+            </el-row>
             <el-row justify="center">
                 <p class="desc">😊Editor:Smile</p>
             </el-row>
@@ -40,6 +45,33 @@
 
 <script>
 
+export default {
+
+    name: "Hero",
+    data() {
+        return {
+            theme: true
+        }
+    },
+    watch:{
+        theme: {
+      handler(val) {
+        console.log(val);
+        this.changeTheme(val);
+        localStorage.setItem('theme', val)
+      },
+      deep: true
+    },
+    },
+    methods:{
+        changeTheme(light){
+            
+            document.documentElement.className = light?'':'dark'; 
+            
+        }
+    }
+
+}
 </script>
 
 <style>
