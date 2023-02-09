@@ -2,24 +2,22 @@
     <el-row justify="center">
         <el-col :span="16">
             <el-row justify="center">
-                <p class="hero-title">ChatGPT网页版</p>
+                <p class="hero-title">ChatGPT-Web网页版</p>
             </el-row>
             <el-row justify="center">
                 <el-link class="hero-subtitle">🏡https://github.com/SmileBuild/ChatGPT-Web/</el-link>
             </el-row>
-            <el-row justify="center">                
-                <el-switch v-model="theme" size="large" active-icon="Sunny" 
-                inactive-icon="Moon"                 
-                inline-prompt />
+            <el-row justify="center">
+                <el-switch v-model="theme" size="large" active-icon="Sunny" inactive-icon="Moon" inline-prompt />
             </el-row>
             <el-row justify="center">
-                <p class="desc">😊Editor:Smile</p>
+                <p class="desc">😊Created by Smile</p>
             </el-row>
             <el-row justify="center">
                 <p class="desc">🚀Easy, Fast, Everywhere</p>
             </el-row>
             <el-row justify="center">
-                <p class="desc">🌊Let's surf together with chatGPT now.</p>
+                <p class="desc">🌊Let's surf with chatGPT now.</p>
             </el-row>
             <el-row :gutter="20" justify="center">
                 <el-image alt="Version"
@@ -53,21 +51,28 @@ export default {
             theme: true
         }
     },
-    watch:{
+    watch: {
         theme: {
-      handler(val) {
-        console.log(val);
-        this.changeTheme(val);
-        localStorage.setItem('theme', val)
-      },
-      deep: true
+            handler(val) {
+                console.log(val);
+                this.changeTheme(val);
+                localStorage.setItem('theme', val)
+            },
+            deep: true
+        },
+
     },
+    mounted() {
+        if (localStorage.getItem('theme')){
+            this.theme = localStorage.getItem('theme') == "true"? true:false;            
+        }
+
     },
-    methods:{
-        changeTheme(light){
-            
-            document.documentElement.className = light?'':'dark'; 
-            
+    methods: {
+        changeTheme(light) {
+
+            document.documentElement.className = light ? '' : 'dark';
+
         }
     }
 

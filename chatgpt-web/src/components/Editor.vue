@@ -12,9 +12,7 @@
     </el-col>
   </el-row>
 
-  <el-row class="button-row" justify="center" v-loading="loading" element-loading-text="Loading..."
-    :element-loading-spinner="svg" element-loading-svg-view-box="-10, -10, 50, 50"
-    element-loading-background="rgba(122, 122, 122, 0.8)">
+  <el-row class="button-row" justify="center">
     <el-tooltip class="box-item" effect="dark" content="参数设置" placement="bottom">
       <el-button size="large" type="success" icon="Operation" @click="toggleParamsBtn" plain>
         Params</el-button>
@@ -33,7 +31,8 @@
   <el-row class="widget-row" justify="center">
     <el-col :span="4" class="params-widget">
       <Transition name="el-zoom-in-right">
-        <el-card shadow="hover" v-show="display_params" style="background-color:var(--el-fill-color)" :body-style="{ height: '24rem' }">
+        <el-card shadow="hover" v-show="display_params" style="background-color:var(--el-fill-color)"
+          :body-style="{ height: '24rem' }">
           <template #header>
             <div class="card-header">
               <span class="card-header-text">Params 参数配置</span>
@@ -94,14 +93,15 @@
           </div>
         </template>
         <el-scrollbar>
-          <p id="result" style="color:red;white-space: pre-wrap;">{{ response }}</p>
+          <p id="result" style="font-weight: bolder;white-space: pre-wrap;">{{ response }}</p>
         </el-scrollbar>
       </el-card>
     </el-col>
 
     <el-col :span="4" class="history-widget">
       <Transition name="el-zoom-in-left">
-        <el-card v-show="display_history" style="background-color:var(--el-fill-color)" shadow="hover" :body-style="{ height: '24rem' }">
+        <el-card v-show="display_history" style="background-color:var(--el-fill-color)" shadow="hover"
+          :body-style="{ height: '24rem' }">
           <template #header>
             <div class="card-header">
               <span class="card-header-text">History 历史记录</span>
@@ -113,7 +113,7 @@
           </template>
           <el-scrollbar>
             <ul>
-              <li v-for="(item, index) in history_list" :key="index">{{ item.prompt }}</li>
+              <el-link type="warning" v-for="(item, index) in history_list" :key="index" @click="showHistoryItem=true,currentItem=item">{{ item.prompt }}</el-link>
             </ul>
           </el-scrollbar>
         </el-card>
@@ -121,7 +121,26 @@
     </el-col>
 
   </el-row>
-
+  <Teleport to="body">
+    <!-- 使用这个 modal 组件，传入 prop -->
+    <HistoryItemDialog :show="showHistoryItem" @close="showHistoryItem = false" :nowitem="currentItem" @delete="deleteItem(currentItem)">
+      
+    </HistoryItemDialog>
+  </Teleport>
+<!-- 
+  <el-dialog v-model="centerDialogVisible" title="{{currentItem.prompt}}" width="30%" align-center>
+    <el-scrollbar>
+      <span>{{ currentItem.response }}</span>
+    </el-scrollbar>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="centerDialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="centerDialogVisible = false">
+          Confirm
+        </el-button>
+      </span>
+    </template>
+  </el-dialog> -->
 
 
 </template>
@@ -129,16 +148,23 @@
 <!-- https://beta.openai.com/docs/api-reference/completions/create -->
 <script>
 import axios from 'axios'
+import HistoryItemDialog from './HistoryItemDialog.vue'
 export default {
   name: 'Editor',
+  components:{
+    HistoryItemDialog
+  },
+  emits: ['bigLoading'],
   data() {
     return {
-      loading: false,
+      currentItem:{},
+      // centerDialogVisible: false,
+      showHistoryItem:false,
       api_key: '',
       prompt: '',
       temperature: 1,
       top_p: 1,
-      max_tokens: 2048,
+      max_tokens: 100,
       frequency_penalty: 0,
       presence_penalty: 0,
       stop: ["Human:", "AI:"],
@@ -179,7 +205,7 @@ export default {
   },
   methods: {
     jumpDocs() {
-      window.location.href = "https:\\baidu.com";
+      window.location.href = "https://platform.openai.com/docs/api-reference/completions/create#completions/create-model";
 
     },
     toggleParamsBtn() {
@@ -204,7 +230,9 @@ export default {
         response: this.response,
         time: new Date().getTime()
       });
+      console.log(historyArr)
       localStorage.setItem('history-list', JSON.stringify(historyArr));
+      this.getHistory();
     },
     downloadTxt() {
       let text = 'Prompt: ' + this.prompt + '\n' + document.getElementById('result').innerText;
@@ -225,7 +253,9 @@ export default {
         presence_penalty: this.presence_penalty,
         stop: this.stop
       }
-      this.loading = true
+      // this.loading = true
+      this.$emit('bigLoading', true)
+
       axios.post('https://api.openai.com/v1/completions', data, {
         headers: {
           'Content-Type': 'application/json',
@@ -233,16 +263,26 @@ export default {
         }
       })
         .then(response => {
-          this.loading = false
+          // this.loading = false
+          this.$emit('bigLoading', false)
           this.response = response.data.choices[0].text;
           console.log(this.response)
           this.saveToHistory()
         })
         .catch(error => {
-          this.loading = false
+          // this.loading = false
+          this.$emit('bigLoading', false)
           console.log(error);
         });
+    },
+    deleteItem(data) {
+      this.showHistoryItem = false
+      this.history_list = this.history_list.filter((item) => {
+        return item != data
+      })
+      // this.saveToHistory()
     }
+
   }
 }
 </script>
@@ -299,5 +339,9 @@ export default {
 .card-header-text {
   font-size: 1rem;
   font-weight: bolder;
+}
+
+.dialog-footer button:first-child {
+  margin-right: 10px;
 }
 </style>
