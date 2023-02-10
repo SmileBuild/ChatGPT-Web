@@ -18,24 +18,16 @@ You can use online link for the project now.
 
 [ChatGPT-Web online](https://smilebuild.github.io/ChatGPT-Web/)
 
-# Vue Project looks like
+# See you on the mountain top of New AI's World.
 
-![v0.2.0](https://raw.githubusercontent.com/SmileBuild/ChatGPT-Web/main/images/ChatGPT020.png)
+Ver1.0 is the first version, maybe the last too. As Microsoft make it possible to use easily, everybody can use that one. This project is created for my fans and friends. If you want to connect me, you can focus my bilibili account and wechat. This is Smile, let's meet on the mountain top.
 
-## Project Setup
+1.0版本是第一本正式版本，也可能是最后一个。微软已经接入openai，每个人都可以更方便的使用它。这个项目为我的粉丝和朋友们创立。如果你想联系我，可以关注bilibili账号和微信公众号：共享技术官.
 
-```sh
-npm install
-```
+我是Smile，我们顶峰再回。
 
-### Compile and Hot-Reload for Development
+### Contact me.
 
-```sh
-npm run dev
-```
+[BiliBili](https://space.bilibili.com/34147682)
 
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+[Wechat](https://mp.weixin.qq.com/s/PreIh5_A0Tuo4_D-7h61sw)
