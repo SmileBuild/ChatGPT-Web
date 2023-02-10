@@ -10,7 +10,7 @@ export default {
       isShow: false,
       prompt: '',
       response: '',
-
+      
     }
   },
   watch: {
@@ -24,12 +24,17 @@ export default {
   },
   mounted() {
     console.log(`the component Dialog is now mounted.`);
+  },
+  methods: {
+    clickOnce(val) {      
+      this.isfirst = val;
+    }
   }
 }
 </script>
 <template>
 
-  <el-dialog v-model="isShow" width="50%" align-center>
+  <el-dialog v-model="isShow" width="50%" :before-close="handleClose" align-center>
     <template #header>
       <div class="my-header">
         <h4>Prompt:{{ prompt }}</h4>
@@ -42,40 +47,18 @@ export default {
     </el-scrollbar>
     <template #footer>
       <span class="dialog-footer">
-        <el-button @click="$emit('delete')">
-          Del
+
+        <el-button type="danger" @click="$emit('delete')">
+          Delete!
         </el-button>
+        <!-- <el-button type="danger" plain @click="clickOnce(false)">
+          Delete? {{ isfirst }}
+        </el-button> -->
         <el-button @click="$emit('close')">Cancel</el-button>
       </span>
     </template>
   </el-dialog>
 </template>
-
-<!-- <template>
-  <Transition name="modal">
-    <div v-if="show" class="modal-mask">
-      <div class="modal-container">
-        <div class="modal-header">
-          <slot name="header">{{nowitem.prompt}}</slot>
-        </div>
-
-        <div class="modal-body">
-          <slot name="body">{{nowitem.request}}</slot>
-        </div>
-
-        <div class="modal-footer">
-          <slot name="footer">
-            default footer
-            <button
-              class="modal-default-button"
-              @click="$emit('close')"
-            >OK</button>
-          </slot>
-        </div>
-      </div>
-    </div>
-  </Transition>
-</template> -->
 
 <style scoped>
 .dialog-footer button:first-child {

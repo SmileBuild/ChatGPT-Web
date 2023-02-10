@@ -2,16 +2,16 @@
     <el-row justify="center">
         <el-col :span="16">
             <el-row justify="center">
-                <p class="hero-title">ChatGPT-Web网页版</p>
+                <p class="hero-title">ChatGPT-Web {{version}} 网页版</p>
             </el-row>
             <el-row justify="center">
                 <el-link class="hero-subtitle">🏡https://github.com/SmileBuild/ChatGPT-Web/</el-link>
             </el-row>
             <el-row justify="center">
-                <el-switch v-model="theme" size="large" active-icon="Sunny" inactive-icon="Moon" inline-prompt />
+                <el-switch v-model="theme" size="large" active-icon="Sunny" inactive-icon="Moon" style="--el-switch-on-color:#f89898;" inline-prompt />
             </el-row>
             <el-row justify="center">
-                <p class="desc">😊Created by Smile</p>
+                <p class="desc">😊Created by Smile </p>
             </el-row>
             <el-row justify="center">
                 <p class="desc">🚀Easy, Fast, Everywhere</p>
@@ -42,13 +42,14 @@
 </template>
 
 <script>
-
+import packageJSON from "../../package.json";
 export default {
-
+    
     name: "Hero",
     data() {
         return {
-            theme: true
+            theme: true,
+            version: packageJSON.version,
         }
     },
     watch: {

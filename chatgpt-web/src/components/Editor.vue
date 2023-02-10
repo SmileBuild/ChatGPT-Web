@@ -14,7 +14,7 @@
 
   <el-row class="button-row" justify="center">
     <el-tooltip class="box-item" effect="dark" content="参数设置" placement="bottom">
-      <el-button size="large" type="success" icon="Operation" @click="toggleParamsBtn" plain>
+      <el-button size="large" type="primary" icon="Operation" @click="toggleParamsBtn" plain>
         Params</el-button>
     </el-tooltip>
     <el-tooltip class="box-item" effect="dark" content="运行" placement="bottom">
@@ -37,7 +37,7 @@
             <div class="card-header">
               <span class="card-header-text">Params 参数配置</span>
               <el-tooltip class="box-item" effect="dark" content="param info (参数说明)" placement="top">
-                <el-button size="large" type="primary" @click="jumpDocs" icon="Warning" circle></el-button>
+                <el-button size="large" type="primary" @click="jumpDocs" icon="MagicStick" circle></el-button>
               </el-tooltip>
             </div>
 
@@ -70,7 +70,7 @@
               </div>
               <h4>Model</h4>
               <el-select v-model="model" class="m-2" placeholder="Model" size="large">
-                <el-option v-for="item in models" :key="item.value" :label="item.label" :value="item.value">{{
+                <el-option v-for="item in models" :key="item" :label="item" :value="item">{{
                   item
                 }}</el-option>
               </el-select>
@@ -99,21 +99,31 @@
     </el-col>
 
     <el-col :span="4" class="history-widget">
-      <Transition name="el-zoom-in-left">
+      <Transition name="el-zoom-in-top">
         <el-card v-show="display_history" style="background-color:var(--el-fill-color)" shadow="hover"
           :body-style="{ height: '24rem' }">
           <template #header>
             <div class="card-header">
               <span class="card-header-text">History 历史记录</span>
 
-              <el-tooltip class="box-item" effect="dark" content="param info (参数说明)" placement="top">
-                <el-button size="large" type="primary" class="button" icon="InfoFilled" circle></el-button>
+              <el-tooltip class="box-item" effect="dark" content="delete(刪除所有）" placement="top">
+                <el-popconfirm width="220" confirm-button-text="OK" cancel-button-text="No" :icon="WarnTriangleFilled"
+                  icon-color="#626AEF" title="Are you sure to delete all?删除所有记录？" @confirm="deleteAll">
+                  <template #reference>                    
+                    <el-button size="large" type="warning" class="button" icon="Delete" circle ></el-button>
+                  </template>
+                </el-popconfirm>
+                
               </el-tooltip>
             </div>
           </template>
           <el-scrollbar>
             <ul>
-              <el-link type="warning" v-for="(item, index) in history_list" :key="index" @click="showHistoryItem=true,currentItem=item">{{ item.prompt }}</el-link>
+              <li v-for="(item, index) in history_list" :key="index">
+                <el-link type="warning" 
+                  @click="showHistoryItem = true, currentItem = item">{{ item.prompt }}</el-link>
+              </li>
+
             </ul>
           </el-scrollbar>
         </el-card>
@@ -121,13 +131,23 @@
     </el-col>
 
   </el-row>
+  <el-row justify="center">
+    <p class="footer-text">{{ pkgjson.name }} {{ pkgjson.version }}</p>
+  </el-row>
+  <el-row justify="center">
+    <el-link :icon="Link" href="{{ pkgjson.author.link }}" target="_blank">{{ pkgjson.author.name }}</el-link>
+  </el-row>
+  <el-row justify="center">
+    <p class="footer-text">免责声明：本页面开发目的仅用于学习和探索，通过使用、修改本页面内容随之而来的一切风险与本作者无关,请合理合法合规使用</p>
+  </el-row>
   <Teleport to="body">
-    <!-- 使用这个 modal 组件，传入 prop -->
-    <HistoryItemDialog :show="showHistoryItem" @close="showHistoryItem = false" :nowitem="currentItem" @delete="deleteItem(currentItem)">
-      
+
+    <HistoryItemDialog :show="showHistoryItem" @close="showHistoryItem = false" :nowitem="currentItem"
+      @delete="deleteItem(currentItem)">
+
     </HistoryItemDialog>
   </Teleport>
-<!-- 
+  <!-- 
   <el-dialog v-model="centerDialogVisible" title="{{currentItem.prompt}}" width="30%" align-center>
     <el-scrollbar>
       <span>{{ currentItem.response }}</span>
@@ -147,19 +167,20 @@
 
 <!-- https://beta.openai.com/docs/api-reference/completions/create -->
 <script>
+import packageJSON from "../../package.json";
 import axios from 'axios'
 import HistoryItemDialog from './HistoryItemDialog.vue'
 export default {
   name: 'Editor',
-  components:{
+  components: {
     HistoryItemDialog
   },
   emits: ['bigLoading'],
   data() {
     return {
-      currentItem:{},
-      // centerDialogVisible: false,
-      showHistoryItem:false,
+      pkgjson: packageJSON,
+      currentItem: {},
+      showHistoryItem: false,
       api_key: '',
       prompt: '',
       temperature: 1,
@@ -280,7 +301,13 @@ export default {
       this.history_list = this.history_list.filter((item) => {
         return item != data
       })
-      // this.saveToHistory()
+      localStorage.setItem('history-list', JSON.stringify(this.history_list));
+      this.getHistory();
+    },
+    deleteAll(){
+      this.history_list = {}
+      localStorage.setItem('history-list', JSON.stringify(this.history_list));
+      this.getHistory();
     }
 
   }
@@ -343,5 +370,9 @@ export default {
 
 .dialog-footer button:first-child {
   margin-right: 10px;
+}
+.footer-text{
+  margin: 0.1rem;
+  padding: 0;
 }
 </style>

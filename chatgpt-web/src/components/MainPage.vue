@@ -15,7 +15,10 @@
       <li class="loading-char">N</li>
       <li class="loading-char">G</li>
     </ul>
-
+    <div class="loading-desc">
+      <p>You want a better one? Contact me...</p>
+      <p>想要更好的使用么？联系我……</p>
+    </div>
   </div>
 </template>
 <script>
@@ -56,6 +59,13 @@ export default {
 .loading-text {
   position: absolute;
   top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading-desc {
+  position: absolute;
+  top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
