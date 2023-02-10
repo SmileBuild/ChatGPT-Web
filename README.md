@@ -24,7 +24,7 @@ Ver1.0 is the first version, maybe the last too. As Microsoft make it possible t
 
 1.0版本是第一本正式版本，也可能是最后一个。微软已经接入openai，每个人都可以更方便的使用它。这个项目为我的粉丝和朋友们创立。如果你想联系我，可以关注bilibili账号和微信公众号：共享技术官.
 
-我是Smile，我们顶峰再回。
+我是Smile，我们顶峰再会。
 
 ### Contact me.
 

@@ -17,7 +17,7 @@
                 <p class="desc">🚀Easy, Fast, Everywhere</p>
             </el-row>
             <el-row justify="center">
-                <p class="desc">🌊Let's surf with chatGPT now.</p>
+                <p class="desc">🌊Let's surf with chatGPT now!</p>
             </el-row>
             <el-row :gutter="20" justify="center">
                 <el-image alt="Version"
