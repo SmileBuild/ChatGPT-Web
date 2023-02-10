@@ -109,19 +109,18 @@
               <el-tooltip class="box-item" effect="dark" content="delete(刪除所有）" placement="top">
                 <el-popconfirm width="220" confirm-button-text="OK" cancel-button-text="No" :icon="WarnTriangleFilled"
                   icon-color="#626AEF" title="Are you sure to delete all?删除所有记录？" @confirm="deleteAll">
-                  <template #reference>                    
-                    <el-button size="large" type="warning" class="button" icon="Delete" circle ></el-button>
+                  <template #reference>
+                    <el-button size="large" type="warning" class="button" icon="Delete" circle></el-button>
                   </template>
                 </el-popconfirm>
-                
+
               </el-tooltip>
             </div>
           </template>
           <el-scrollbar>
             <ul>
               <li v-for="(item, index) in history_list" :key="index">
-                <el-link type="warning" 
-                  @click="showHistoryItem = true, currentItem = item">{{ item.prompt }}</el-link>
+                <el-link type="warning" @click="showHistoryItem = true, currentItem = item">{{ item.prompt }}</el-link>
               </li>
 
             </ul>
@@ -132,13 +131,17 @@
 
   </el-row>
   <el-row justify="center">
-    <p class="footer-text">{{ pkgjson.name }} {{ pkgjson.version }}</p>
+    <p class="footer-top">{{ pkgjson.name }} {{ pkgjson.version }}</p>
   </el-row>
   <el-row justify="center">
-    <el-link :icon="Link" href="{{ pkgjson.author.link }}" target="_blank">{{ pkgjson.author.name }}</el-link>
+    <el-link class="footer-text" icon="Link" href="https://space.bilibili.com/34147682" target="_blank">created by Smile</el-link>
   </el-row>
   <el-row justify="center">
-    <p class="footer-text">免责声明：本页面开发目的仅用于学习和探索，通过使用、修改本页面内容随之而来的一切风险与本作者无关,请合理合法合规使用</p>
+    <p class="footer-text">免责声明：本页面开发目的仅用于学习和探索</p>
+  </el-row>
+  <el-row justify="center">
+    <p class="footer-text">
+      通过使用\修改本页面内容随之而来的一切风险与本作者无关,请合理合法合规使用</p>
   </el-row>
   <Teleport to="body">
 
@@ -178,7 +181,7 @@ export default {
   emits: ['bigLoading'],
   data() {
     return {
-      pkgjson: packageJSON,
+      pkgjson: packageJSON,    
       currentItem: {},
       showHistoryItem: false,
       api_key: '',
@@ -304,7 +307,7 @@ export default {
       localStorage.setItem('history-list', JSON.stringify(this.history_list));
       this.getHistory();
     },
-    deleteAll(){
+    deleteAll() {
       this.history_list = {}
       localStorage.setItem('history-list', JSON.stringify(this.history_list));
       this.getHistory();
@@ -371,8 +374,18 @@ export default {
 .dialog-footer button:first-child {
   margin-right: 10px;
 }
-.footer-text{
-  margin: 0.1rem;
+
+.footer-text {
+  margin: 0;
   padding: 0;
+  white-space: pre-wrap;
+}
+.footer-top{
+  margin-top: 1rem;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0;
+  white-space: pre-wrap;
 }
 </style>

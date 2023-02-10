@@ -2,7 +2,10 @@
   "name": "chatgpt-web",
   "version": "1.0.0",
   "private": true,
-  "author": {"name":"smile","url":"https://space.bilibili.com/34147682"},
+  "author": {
+    "name": "Smile",
+    "url": "https://space.bilibili.com/34147682"
+  },
   "description": "ChatGPT web client base on OpenAI",
   "scripts": {
     "dev": "vite",

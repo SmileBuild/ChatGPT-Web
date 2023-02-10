@@ -16,8 +16,8 @@
       <li class="loading-char">G</li>
     </ul>
     <div class="loading-desc">
-      <p>You want a better one? Contact me...</p>
-      <p>想要更好的使用么？联系我……</p>
+      <p>want to use it better? Contact and focus me...</p>
+      <p>想要更好的使用ChatGPT么？联系我……</p>
     </div>
   </div>
 </template>
