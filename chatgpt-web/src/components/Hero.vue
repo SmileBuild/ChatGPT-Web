@@ -27,7 +27,7 @@
 
                 <el-image alt="GitHub" src="https://img.shields.io/github/license/smilebuild/chatgpt-web" />
                 <el-image alt="Version"
-                    src="https://img.shields.io/github/package-json/v/SmileBuild/ChatGPT-Web?filename=chatgpt-web%2Fpackage.json" />
+                    src="https://img.shields.io/github/package-json/v/SmileBuild/Chatgpt-Web?filename=chatgpt-web%2Fpackage.json" />
                 <el-image alt="Last Commit" src="https://img.shields.io/github/last-commit/SmileBuild/Chatgpt-Web" />
                 <el-image alt="build"
                     src="https://github.com/SmileBuild/ChatGPT-Web/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages" />
