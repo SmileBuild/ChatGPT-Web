@@ -30,4 +30,6 @@ Ver1.0 is the first version, maybe the last too. As Microsoft make it possible t
 
 [BiliBili](https://space.bilibili.com/34147682)
 
-[Wechat](https://mp.weixin.qq.com/s/PreIh5_A0Tuo4_D-7h61sw)
+[微信公众号](https://mp.weixin.qq.com/s/PreIh5_A0Tuo4_D-7h61sw)
+
+![微信](https://www.github.com/SmileBuild/ChatGPT-Web/wechat_qrcode.jpg)
