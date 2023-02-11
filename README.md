@@ -32,4 +32,4 @@ Ver1.0 is the first version, maybe the last too. As Microsoft make it possible t
 
 [微信公众号](https://mp.weixin.qq.com/s/PreIh5_A0Tuo4_D-7h61sw)
 
-![微信](https://www.github.com/SmileBuild/ChatGPT-Web/wechat_qrcode.jpg)
+[![微信公众号二维码](https://i.postimg.cc/2jTQgP9g/qrcode-for-gh-0e5c8d2cb1b0-258.jpg)](https://postimg.cc/pyh5F1HB)

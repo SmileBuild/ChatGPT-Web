@@ -4,14 +4,17 @@
             <el-row justify="center">
                 <p class="hero-title">ChatGPT-Web {{version}} 网页版</p>
             </el-row>
-            <el-row justify="center">
-                <el-link class="hero-subtitle">🏡https://github.com/SmileBuild/ChatGPT-Web/</el-link>
-            </el-row>
-            <el-row justify="center">
+            <el-row justify="center" align="middle">
+                <el-link icon="Link" class="hero-subtitle" href="https://space.bilibili.com/34147682" target="_blank">
+                    BiliBili
+                </el-link>                
                 <el-switch v-model="theme" size="large" active-icon="Sunny" inactive-icon="Moon" style="--el-switch-on-color:#f89898;" inline-prompt />
             </el-row>
+            <el-row justify="center">                
+                <el-image style="width: 100px; height: 100px" src="https://i.postimg.cc/2jTQgP9g/qrcode-for-gh-0e5c8d2cb1b0-258.jpg" />
+            </el-row>
             <el-row justify="center">
-                <p class="desc">😊Created by Smile </p>
+                <p class="desc-small">😊公众号“共享技术官” </p>
             </el-row>
             <el-row justify="center">
                 <p class="desc">🚀Easy, Fast, Everywhere</p>
@@ -88,7 +91,7 @@ export default {
 }
 
 .hero-subtitle {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin: 1rem;
     font-weight: bold;
 }
@@ -101,6 +104,12 @@ export default {
     font-size: 1.5rem;
     margin: 0rem 0;
 
+
+}
+.desc-small {
+    font-size: 1rem;
+    margin: 0rem 0;
+    font-weight: bolder;
 
 }
 </style>
