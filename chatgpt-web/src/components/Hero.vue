@@ -2,16 +2,20 @@
     <el-row justify="center">
         <el-col :span="16">
             <el-row justify="center">
-                <p class="hero-title">ChatGPT-Web {{version}} 网页版</p>
+                <p class="hero-title">ChatGPT-Web {{ version }}</p>
             </el-row>
             <el-row justify="center" align="middle">
+                <el-button size="large" type="warning" icon="Iphone" @click="jumpMobile" circle>
+                    </el-button>
                 <el-link icon="Link" class="hero-subtitle" href="https://space.bilibili.com/34147682" target="_blank">
                     BiliBili
-                </el-link>                
-                <el-switch v-model="theme" size="large" active-icon="Sunny" inactive-icon="Moon" style="--el-switch-on-color:#f89898;" inline-prompt />
+                </el-link>
+                <el-switch v-model="theme" size="large" active-icon="Sunny" inactive-icon="Moon"
+                    style="--el-switch-on-color:#f89898;" inline-prompt />
             </el-row>
-            <el-row justify="center">                
-                <el-image style="width: 100px; height: 100px" src="https://i.postimg.cc/2jTQgP9g/qrcode-for-gh-0e5c8d2cb1b0-258.jpg" />
+            <el-row justify="center">
+                <el-image style="width: 100px; height: 100px"
+                    src="https://i.postimg.cc/2jTQgP9g/qrcode-for-gh-0e5c8d2cb1b0-258.jpg" />
             </el-row>
             <el-row justify="center">
                 <p class="desc-small">😊公众号“共享技术官” </p>
@@ -47,8 +51,9 @@
 <script>
 import packageJSON from "../../package.json";
 export default {
-    
+
     name: "Hero",
+    emits: ['turnMobile'],
     data() {
         return {
             theme: true,
@@ -67,12 +72,16 @@ export default {
 
     },
     mounted() {
-        if (localStorage.getItem('theme')){
-            this.theme = localStorage.getItem('theme') == "true"? true:false;            
+        if (localStorage.getItem('theme')) {
+            this.theme = localStorage.getItem('theme') == "true" ? true : false;
         }
 
     },
     methods: {
+
+        jumpMobile() {
+            this.$emit('turnMobile', true)
+        },
         changeTheme(light) {
 
             document.documentElement.className = light ? '' : 'dark';
@@ -85,7 +94,7 @@ export default {
 
 <style>
 .hero-title {
-    font-size: 4rem;
+    font-size: 2rem;
     margin: 1rem;
     font-weight: bolder;
 }
@@ -106,6 +115,7 @@ export default {
 
 
 }
+
 .desc-small {
     font-size: 1rem;
     margin: 0rem 0;

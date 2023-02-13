@@ -1,8 +1,9 @@
 <template>
   <el-container v-show="!loading">
     <el-main>
-      <Hero />
-      <Editor v-on:big-loading="isLoading" />
+      <Hero v-show="!mobile" v-on:turn-mobile="isMobile" />
+      <Editor v-if="!mobile" v-on:big-loading="isLoading" />
+      <MobilePage v-if="mobile" v-on:turn-mobile="isMobile" v-on:big-loading="isLoading" />
     </el-main>
   </el-container>
   <div v-show="loading" class="loader-div">
@@ -24,15 +25,19 @@
 <script>
 import Editor from './Editor.vue'
 import Hero from './Hero.vue'
+import MobilePage from './MobilePage.vue'
+
 export default {
   name: 'MainPage',
   components: {
     Editor,
-    Hero
+    Hero,
+    MobilePage
   },
   data() {
     return {
-      loading: true
+      loading: true,
+      mobile: false,
     };
   },
   created() {
@@ -40,11 +45,30 @@ export default {
     this.loading = false;
 
   },
+  mounted() {
+    var mobile_temp = localStorage.getItem('is-mobile')
+    if (mobile_temp != null)
+      if (mobile_temp != '') {
+        this.mobile = localStorage.getItem('is-mobile')
+      }
+  },
+  watch: {
+    mobile: {
+      handler(val) {
+        localStorage.setItem('is-mobile', val)
+      },
+      deep: true
+    },
+  },
   methods: {
     isLoading(loadtype) {
       console.log(loadtype)
       this.loading = loadtype
-    }
+    },
+    isMobile(loadtype) {
+      console.log(loadtype)
+      this.mobile = loadtype
+    },
   }
 }
 </script>

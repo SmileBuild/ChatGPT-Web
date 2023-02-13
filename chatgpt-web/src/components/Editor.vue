@@ -188,7 +188,7 @@ export default {
       prompt: '',
       temperature: 1,
       top_p: 1,
-      max_tokens: 100,
+      max_tokens: 1000,
       frequency_penalty: 0,
       presence_penalty: 0,
       stop: ["Human:", "AI:"],
@@ -311,7 +311,7 @@ export default {
       this.history_list = {}
       localStorage.setItem('history-list', JSON.stringify(this.history_list));
       this.getHistory();
-    }
+    },
 
   }
 }
