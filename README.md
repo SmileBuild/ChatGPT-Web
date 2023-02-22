@@ -1,3 +1,4 @@
+[![pSjz74J.png](https://s1.ax1x.com/2023/02/22/pSjz74J.png)](https://imgse.com/i/pSjz74J)
 
 ![GitHub](https://img.shields.io/github/license/SmileBuild/ChatGPT-Web)
 ![GitHub package.json version (subfolder of monorepo)](https://img.shields.io/github/package-json/v/SmileBuild/Chatgpt-Web?filename=chatgpt-web%2Fpackage.json)
@@ -5,6 +6,7 @@
 [![pages-build-deployment](https://github.com/SmileBuild/ChatGPT-Web/actions/workflows/pages/pages-build-deployment/badge.svg?branch=gh-pages)](https://github.com/SmileBuild/ChatGPT-Web/actions/workflows/pages/pages-build-deployment)
 ![GitHub Repo stars](https://img.shields.io/github/stars/smilebuild/ChatGPT-Web)
  ![Vue](https://img.shields.io/badge/Vue.js-35495E?logo=vue.js&logoColor=4FC08D)
+
 # ChatGPT-Web
 ChatGPT page with API instand of offical pages.
 
